@@ -19,3 +19,7 @@ jobs:
 
       - name : Run test with pytest
         run: pytest test -v
+
+      - name: Send report tp slack
+        run: pytest setting/notif_slack.py
+
