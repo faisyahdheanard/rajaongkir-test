@@ -1,6 +1,8 @@
 name: Run test with cicd
 
-on: [ push ]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   run_api_automation:
@@ -12,16 +14,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install depedencies
-        run:
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name : Run test with pytest
+      - name: Run test with pytest
         run: pytest test -v
 
       - name: Send report to slack
         run: pytest setting/notif_slack.py
         env:
           PYTEST_WEBHOOK_SLACK: ${{ secrets.WEBHOOK_SLACK }}
-
